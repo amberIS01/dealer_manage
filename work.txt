@@ -1,0 +1,46 @@
+Task 1: Dealer & Vehicle Management API
+
+Objective: Build basic APIs for managing dealers and their vehicles.
+
+Requirements:
+
+Create entities:
+Dealer: id, name, email, subscriptionType (BASIC/PREMIUM)
+Vehicle: id, dealerId (FK), model, price, status (AVAILABLE/SOLD)
+Implement CRUD REST APIs for both entities using Spring Boot + JPA + PostgreSQL.
+Write an API that fetches all vehicles belonging to PREMIUM dealers only.
+Deliverables:
+
+Spring Boot project with working APIs
+SQL schema (auto-generated via JPA or manual script)
+Postman collection or Swagger for testing
+Task 2: Payment Gateway Simulation
+
+Objective: Simulate dealer subscription payment processing.
+
+Requirements:
+
+Endpoint: /api/payment/initiate → Accepts dealerId, amount, method (UPI/Card/NetBanking).
+Save payment record with status = "PENDING".
+After 5 seconds, auto-update status → "SUCCESS" (simulate callback).
+(Bonus) Secure API using JWT authentication.
+Deliverables:
+
+API endpoints with request/response examples
+PostgreSQL table to store transactions
+
+
+
+Submission Guidelines
+
+Submit your task to myreport@dealersautocenter.com
+
+Subject line : (Front End Task / First Name Last name)
+Time: Please complete within 2 days of receiving this assignment.
+Deliverables: GitHub repo + deployment link + screenshots.
+Evaluation Criteria:
+Code quality & state management
+API integration & error handling
+UI/UX design and responsiveness
+Reusability of components
+Documentation & clarity 

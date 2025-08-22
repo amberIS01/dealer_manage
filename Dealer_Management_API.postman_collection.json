@@ -1,0 +1,351 @@
+{
+  "info": {
+    "name": "Dealer Management API",
+    "description": "Collection for testing Dealer Management System APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('jwt_token', response.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dealers",
+      "item": [
+        {
+          "name": "Create Dealer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Premium Auto Dealer\",\n  \"email\": \"premium@dealer.com\",\n  \"subscriptionType\": \"PREMIUM\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/dealers",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dealers"]
+            }
+          }
+        },
+        {
+          "name": "Get All Dealers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/dealers",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dealers"]
+            }
+          }
+        },
+        {
+          "name": "Get Dealer by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/dealers/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dealers", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Dealer",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Premium Dealer\",\n  \"email\": \"updated@dealer.com\",\n  \"subscriptionType\": \"BASIC\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/dealers/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dealers", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Dealer",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/dealers/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dealers", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vehicles",
+      "item": [
+        {
+          "name": "Create Vehicle",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dealerId\": 1,\n  \"model\": \"Toyota Camry 2024\",\n  \"price\": 35000.00,\n  \"status\": \"AVAILABLE\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/vehicles",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles"]
+            }
+          }
+        },
+        {
+          "name": "Get All Vehicles",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/vehicles",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles"]
+            }
+          }
+        },
+        {
+          "name": "Get Vehicle by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/vehicles/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Vehicles by Dealer",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/vehicles/dealer/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles", "dealer", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Premium Dealer Vehicles",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/vehicles/premium",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles", "premium"]
+            }
+          }
+        },
+        {
+          "name": "Update Vehicle",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dealerId\": 1,\n  \"model\": \"Honda Accord 2024\",\n  \"price\": 32000.00,\n  \"status\": \"SOLD\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/vehicles/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Vehicle",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/vehicles/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Initiate Payment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dealerId\": 1,\n  \"amount\": 5000.00,\n  \"method\": \"CARD\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/payment/initiate",
+              "host": ["{{base_url}}"],
+              "path": ["api", "payment", "initiate"]
+            }
+          }
+        },
+        {
+          "name": "Get Payment by ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/payment/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "payment", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get All Payments",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/payment",
+              "host": ["{{base_url}}"],
+              "path": ["api", "payment"]
+            }
+          }
+        },
+        {
+          "name": "Get Payments by Dealer",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/payment/dealer/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "payment", "dealer", "1"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
