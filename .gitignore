@@ -52,3 +52,6 @@ application-prod.yml
 *.zip
 *.tar.gz
 *.rar
+
+# Claude configuration
+CLAUDE.md
